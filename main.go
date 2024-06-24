@@ -33,9 +33,33 @@ func main() {
 	// cards.saveToFile("my_cards._temp_.txt")
 
 	deckFromFile := newDeckFromFile("my_cards._temp_.txt")
-	deckFromFile.print()
+	// deckFromFile.print()
+	println(len(deckFromFile))
+	exercise39()
 }
 
 func newCard() string {
 	return "Five of Diamonds"
+}
+
+func exercise39 (){
+	// ints := []int
+	// len := 10
+	// var ints [len]int ❌
+	len := 11
+	ints := make([]int, len)
+
+	for i := 0; i < len; i++ {
+		// ints = append(ints, i) -> ko hay
+		ints[i] = i
+	}
+
+
+	for _, i := range ints {
+		if i % 2 == 0 {
+			println(i, " is even")
+		} else {
+			println(i, " is odd")
+		}
+	}
 }
