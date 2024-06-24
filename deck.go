@@ -24,3 +24,13 @@ func newDeck() deck {
 
 	return cards
 }
+
+// d -> convention
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
+
+// demo only -> go ko có KN destructing như js, bản thân việc return multi value đã tương tự array rồi
+func dealor(d deck, handSize int) [2]deck {
+	return [2]deck{d[:handSize], d[handSize:]}
+}

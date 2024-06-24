@@ -15,7 +15,17 @@ func main() {
 	// 	fmt.Println(card)
 	// }
 	cards := newDeck()
-	cards.print()
+	// cards.print()
+
+	hand, remainingDeck := deal(cards, 5)
+	hand.print()
+	remainingDeck.print()
+
+	// ko hay
+	// lor := dealor(cards, 5)
+	// // Hàm print ko return mà print thẳng nên ko dùng log như js được
+	// lor[0].print()
+	// lor[1].print()
 }
 
 func newCard() string {
