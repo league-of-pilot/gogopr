@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 	// var card string = "Ace of Spades"
 	// card := "Ace of Spades"
@@ -35,14 +37,16 @@ func main() {
 	deckFromFile := newDeckFromFile("my_cards._temp_.txt")
 	// deckFromFile.print()
 	println(len(deckFromFile))
-	exercise39()
+	// exercise39()
+
+	demoStruct()
 }
 
 func newCard() string {
 	return "Five of Diamonds"
 }
 
-func exercise39 (){
+func exercise39() {
 	// ints := []int
 	// len := 10
 	// var ints [len]int ❌
@@ -54,12 +58,32 @@ func exercise39 (){
 		ints[i] = i
 	}
 
-
 	for _, i := range ints {
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			println(i, " is even")
 		} else {
 			println(i, " is odd")
 		}
 	}
+}
+
+type person struct {
+	firstName string
+	lastName  string
+}
+
+func demoStruct() {
+	person1 := person{firstName: "Alex", lastName: "Anderson"}
+	person2 := person{"John", "Doe"} // valid but not recommended
+
+	fmt.Println(person1, person2)
+
+	var person3 person
+	fmt.Printf("%+v", person3)
+	person3 = person2
+	person2.lastName = "rename"
+
+	fmt.Printf("%+v", person3) // -> ko bị reference
+	fmt.Printf("%+v", person2)
+
 }
