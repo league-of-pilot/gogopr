@@ -14,7 +14,7 @@ func main() {
 	// for _, card := range cards {
 	// 	fmt.Println(card)
 	// }
-	cards := newDeck()
+	// cards := newDeck()
 	// cards.print()
 
 	// Deal card
@@ -30,7 +30,10 @@ func main() {
 	// lor[1].print()
 
 	// fmt.Println(cards.toString())
-	cards.saveToFile("my_cards._temp_.txt")
+	// cards.saveToFile("my_cards._temp_.txt")
+
+	deckFromFile := newDeckFromFile("my_cards._temp_.txt")
+	deckFromFile.print()
 }
 
 func newCard() string {
