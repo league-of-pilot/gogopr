@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+// syntax import bằng newline, ko dùng dấu phẩy
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 type deck []string
 
@@ -33,4 +38,16 @@ func deal(d deck, handSize int) (deck, deck) {
 // demo only -> go ko có KN destructing như js, bản thân việc return multi value đã tương tự array rồi
 func dealor(d deck, handSize int) [2]deck {
 	return [2]deck{d[:handSize], d[handSize:]}
+}
+
+func (d deck) toString() string {
+	// https://go.dev/tour/basics/13
+	// ko thấy docs cụ thể
+	return strings.Join([]string(d), ",")
+
+	// return fmt.Sprint(d) -> ❌ , return [Ace of Spades Two of Spades Three of Spades Four of Spades Ace of Diamonds ... ]
+}
+
+func (d deck) saveToFile(filename string) error {
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
