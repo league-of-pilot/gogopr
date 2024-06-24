@@ -8,12 +8,13 @@ func main() {
 
 	// another = "Queen of Hearts"
 	// fmt.Println(card, another, cardFoo)
-	cards := deck{"Ace of Spades", newCard()}
-	cards = append(cards, "Queen of Hearts")
+	// cards := deck{"Ace of Spades", newCard()}
+	// cards = append(cards, "Queen of Hearts")
 
 	// for _, card := range cards {
 	// 	fmt.Println(card)
 	// }
+	cards := newDeck()
 	cards.print()
 }
 
