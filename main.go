@@ -67,18 +67,31 @@ func exercise39() {
 	}
 }
 
+type pInfo struct {
+	age int
+	mail string
+}
+
 type person struct {
 	firstName string
 	lastName  string
+	info pInfo
 }
 
 func demoStruct() {
-	person1 := person{firstName: "Alex", lastName: "Anderson"}
-	person2 := person{"John", "Doe"} // valid but not recommended
+	person1 := person{firstName: "Alex", lastName: "Anderson", info: pInfo{
+		age: 20,
+		mail: "mail",
+	}} // , cuối ở đây thì skip được -> nhờ editor hint error syntax
+
+	person2 := person{"John", "Doe" , pInfo{
+		age: 20,
+		mail: "mail", // bắt buộc phải có dấu , ở cuối
+	}} // valid but not recommended
 
 	fmt.Println(person1, person2)
 
-	var person3 person
+	var person3 person // zero value chứ ko phải undefined như js
 	fmt.Printf("%+v", person3)
 	person3 = person2
 	person2.lastName = "rename"
