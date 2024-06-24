@@ -3,8 +3,10 @@ package main
 // syntax import bằng newline, ko dùng dấu phẩy
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type deck []string
@@ -60,4 +62,18 @@ func newDeckFromFile(filename string) deck {
 	}
 
 	return deck(strings.Split(string(bs), ","))
+}
+
+func (d deck) shuffle() {
+	// https://pkg.go.dev/math/rand@go1.22.4#New
+	// https://pkg.go.dev/time@go1.22.4#Time.UnixNano
+	// https://pkg.go.dev/math/rand@go1.22.4#Source
+	
+	s := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(s)
+
+	for i := range d {
+		newPos := r.Intn(len(d) - 1)
+		d[i], d[newPos] = d[newPos], d[i]
+	}
 }
