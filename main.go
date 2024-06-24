@@ -75,11 +75,11 @@ type pInfo struct {
 type person struct {
 	firstName string
 	lastName  string
-	info pInfo
+	pInfo // shorthand for pInfo pInfo
 }
 
 func demoStruct() {
-	person1 := person{firstName: "Alex", lastName: "Anderson", info: pInfo{
+	person1 := person{firstName: "Alex", lastName: "Anderson", pInfo: pInfo{
 		age: 20,
 		mail: "mail",
 	}} // , cuối ở đây thì skip được -> nhờ editor hint error syntax
@@ -97,6 +97,11 @@ func demoStruct() {
 	person2.lastName = "rename"
 
 	fmt.Printf("%+v", person3) // -> ko bị reference
-	fmt.Printf("%+v", person2)
+	person2.print("person2")
+}
 
+// https://bojanz.github.io/optional-parameters-go/
+// go ko support built-in -> lí do ở trên
+func (p person) print(s string) {
+	fmt.Printf("%s %+v",s, p)
 }
