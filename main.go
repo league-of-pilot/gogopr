@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	ex := 59
+	ex := 62
 	// var card string = "Ace of Spades"
 	// card := "Ace of Spades"
 	// var another = "Ten of Diamonds"
@@ -43,6 +43,8 @@ func main() {
 		ex39()
 	case 59:
 		udego.Ex59()
+	case 62:
+		udego.HttpV62()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
