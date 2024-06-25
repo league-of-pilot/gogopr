@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	V59 "v59"
+)
 
 func main() {
 	ex := 59
@@ -39,7 +42,7 @@ func main() {
 	case 39:
 		ex39()
 	case 59:
-		ex59()
+		V59.Ex()
 	default:
 		deckFromFile := newDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
@@ -113,40 +116,3 @@ func demoStruct() {
 func (p person) print(s string) {
 	fmt.Printf("%s %+v", s, p)
 }
-
-// ========================================
-// v59 interface
-type botInterstellar interface {
-	getGreeting() string
-}
-
-type englishBot struct{}
-type spanishBot struct{}
-
-func (englishBot) getBye() {
-	fmt.Println("Bye!")
-}
-
-func ex59() {
-	eb := englishBot{}
-	sb := spanishBot{}
-
-	printGreeting(eb)
-	printGreeting(sb)
-
-	eb.getBye()
-}
-
-func (englishBot) getGreeting() string {
-	return "Hello there!"
-}
-
-func (spanishBot) getGreeting() string {
-	return "Hola!"
-}
-
-func printGreeting(b botInterstellar) {
-	fmt.Println(b.getGreeting())
-}
-
-// ========================================
