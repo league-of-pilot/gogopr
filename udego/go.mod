@@ -1,3 +1,3 @@
-module v59
+module udego
 
 go 1.22.4

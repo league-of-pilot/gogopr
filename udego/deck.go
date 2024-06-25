@@ -1,4 +1,4 @@
-package main
+package udego
 
 // syntax import bằng newline, ko dùng dấu phẩy
 import (
@@ -54,7 +54,7 @@ func (d deck) saveToFile(filename string) error {
 	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
-func newDeckFromFile(filename string) deck {
+func NewDeckFromFile(filename string) deck {
 	bs, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -68,7 +68,7 @@ func (d deck) shuffle() {
 	// https://pkg.go.dev/math/rand@go1.22.4#New
 	// https://pkg.go.dev/time@go1.22.4#Time.UnixNano
 	// https://pkg.go.dev/math/rand@go1.22.4#Source
-	
+
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
 

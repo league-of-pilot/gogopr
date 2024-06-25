@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	V59 "v59"
+	"udego"
 )
 
 func main() {
@@ -42,9 +42,9 @@ func main() {
 	case 39:
 		ex39()
 	case 59:
-		V59.Ex()
+		udego.Ex59()
 	default:
-		deckFromFile := newDeckFromFile("my_cards._temp_.txt")
+		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
 		println(len(deckFromFile))
 		// exercise39()

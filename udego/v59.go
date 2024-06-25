@@ -1,4 +1,4 @@
-package V59
+package udego
 
 import "fmt"
 
@@ -14,7 +14,7 @@ func (englishBot) getBye() {
 	fmt.Println("Bye!")
 }
 
-func Ex() {
+func Ex59() {
 	eb := englishBot{}
 	sb := spanishBot{}
 
