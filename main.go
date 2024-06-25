@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+	ex := 59
 	// var card string = "Ace of Spades"
 	// card := "Ace of Spades"
 	// var another = "Ten of Diamonds"
@@ -34,19 +35,26 @@ func main() {
 	// fmt.Println(cards.toString())
 	// cards.saveToFile("my_cards._temp_.txt")
 
-	deckFromFile := newDeckFromFile("my_cards._temp_.txt")
-	// deckFromFile.print()
-	println(len(deckFromFile))
-	// exercise39()
+	switch ex {
+	case 39:
+		ex39()
+	case 59:
+		ex59()
+	default:
+		deckFromFile := newDeckFromFile("my_cards._temp_.txt")
+		// deckFromFile.print()
+		println(len(deckFromFile))
+		// exercise39()
 
-	demoStruct()
+		demoStruct()
+	}
 }
 
-func newCard() string {
-	return "Five of Diamonds"
-}
+// func newCard() string {
+// 	return "Five of Diamonds"
+// }
 
-func exercise39() {
+func ex39() {
 	// ints := []int
 	// len := 10
 	// var ints [len]int ❌
@@ -68,24 +76,24 @@ func exercise39() {
 }
 
 type pInfo struct {
-	age int
+	age  int
 	mail string
 }
 
 type person struct {
 	firstName string
 	lastName  string
-	pInfo // shorthand for pInfo pInfo
+	pInfo     // shorthand for pInfo pInfo
 }
 
 func demoStruct() {
 	person1 := person{firstName: "Alex", lastName: "Anderson", pInfo: pInfo{
-		age: 20,
+		age:  20,
 		mail: "mail",
 	}} // , cuối ở đây thì skip được -> nhờ editor hint error syntax
 
-	person2 := person{"John", "Doe" , pInfo{
-		age: 20,
+	person2 := person{"John", "Doe", pInfo{
+		age:  20,
 		mail: "mail", // bắt buộc phải có dấu , ở cuối
 	}} // valid but not recommended
 
@@ -103,5 +111,42 @@ func demoStruct() {
 // https://bojanz.github.io/optional-parameters-go/
 // go ko support built-in -> lí do ở trên
 func (p person) print(s string) {
-	fmt.Printf("%s %+v",s, p)
+	fmt.Printf("%s %+v", s, p)
 }
+
+// ========================================
+// v59 interface
+type botInterstellar interface {
+	getGreeting() string
+}
+
+type englishBot struct{}
+type spanishBot struct{}
+
+func (englishBot) getBye() {
+	fmt.Println("Bye!")
+}
+
+func ex59() {
+	eb := englishBot{}
+	sb := spanishBot{}
+
+	printGreeting(eb)
+	printGreeting(sb)
+
+	eb.getBye()
+}
+
+func (englishBot) getGreeting() string {
+	return "Hello there!"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola!"
+}
+
+func printGreeting(b botInterstellar) {
+	fmt.Println(b.getGreeting())
+}
+
+// ========================================
