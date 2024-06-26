@@ -2,11 +2,20 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"udego"
 )
 
 func main() {
-	ex := 62
+	args := os.Args
+	var ex string
+
+	if len(args) > 1 {
+		ex = args[1]
+	} else {
+		ex = "62"
+	}
+
 	// var card string = "Ace of Spades"
 	// card := "Ace of Spades"
 	// var another = "Ten of Diamonds"
@@ -39,11 +48,11 @@ func main() {
 	// cards.saveToFile("my_cards._temp_.txt")
 
 	switch ex {
-	case 39:
+	case "39":
 		ex39()
-	case 59:
+	case "59":
 		udego.Ex59()
-	case 62:
+	case "62":
 		udego.HttpV62()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
