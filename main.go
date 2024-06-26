@@ -13,7 +13,7 @@ func main() {
 	if len(args) > 1 {
 		ex = args[1]
 	} else {
-		ex = "62"
+		ex = "method-19"
 	}
 
 	// var card string = "Ace of Spades"
@@ -54,6 +54,8 @@ func main() {
 		udego.Ex59()
 	case "62":
 		udego.HttpV62()
+	case "method-19":
+		udego.Method19()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
