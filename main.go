@@ -60,6 +60,8 @@ func main() {
 		udego.Main20()
 	case "23":
 		udego.MainMethod23()
+	case "demoReader":
+		udego.PlayReader()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
