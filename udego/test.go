@@ -25,8 +25,13 @@ func (p *demoRead) Read(b []byte) (n int, err error) {
 		return n, io.EOF
 	}
 
-	for i := 0; i < l && i < len(b); i++ {
-		iter := p.content[i]
+	// track theo pos của content < l chứ ko phải i
+	// mỗi loop sẽ tăng pos lên theo i
+	// i chỉ là biến chạy ảo chỉ ràng buộc lỏng với len(b)
+	// Dùng closure quản lý thì hơi căng
+
+	for i := 0; p.pos < l && i < len(b); i++ {
+		iter := p.content[p.pos]
 		b[i] = iter
 		p.pos++
 		n++
