@@ -56,6 +56,8 @@ func main() {
 		udego.HttpV62()
 	case "method-19":
 		udego.Method19()
+	case "20":
+		udego.Main20()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
