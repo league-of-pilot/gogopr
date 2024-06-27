@@ -46,4 +46,8 @@ func CheckLinks() {
 	// mes := <- c
 	// fmt.Println(mes)
 	fmt.Printf(<-c)
+	println("Done - 1")
+	fmt.Printf(<-c)
+	println("Done - 2")
+	fmt.Printf(<-c)
 }
