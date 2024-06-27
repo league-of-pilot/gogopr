@@ -1,6 +1,7 @@
 package udego
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -12,6 +13,8 @@ type rot13Reader struct {
 	// Nhưng rot13.Read() chưa có, cần implement
 	r io.Reader
 }
+
+type logWriter struct{}
 
 // Bản thân rot13Reader cần implement Read() method để cùng có dạng io.Reader
 // arr b[] byte sẽ được io.Copy() tạo buffer và truyền vào
@@ -36,4 +39,20 @@ func MainMethod23() {
 	s := strings.NewReader("Lbh penpxrq gur pbqr!")
 	r := rot13Reader{s}
 	io.Copy(os.Stdout, &r)
+
+	// string.NewReader() trả về *strings.Reader nên ko thể dùng r2:=r
+	// Bản thân expression trên trả về copy value nhưng valua là pointer lại cùng trỏ về 1 biến
+	// Khi này strings đã ở EOF, io.Copy() gặp EOF sẽ dừng, ko chạy tiếp vào Write nên ko bắt được trong logic nữa
+	// muốn đọc lại thì phải reset con trỏ position
+	justTest := strings.NewReader("Just print me!")
+	io.Copy(logWriter{}, justTest)
+	io.Copy(logWriter{}, justTest) // nothing happen
+}
+
+func (logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs), len(bs))
+	// bs là []byte, nếu convert sang string thì sẽ có thể dùng string method
+	// nhưng ko cần thiết, chỉ cần dùng len() để lấy size
+	// trả về size và nil
+	return len(bs), nil
 }
