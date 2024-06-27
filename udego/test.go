@@ -21,16 +21,19 @@ func (p *demoRead) Read(b []byte) (n int, err error) {
 	l := len(p.content)
 	if p.pos >= l {
 		println("EOF")
-		return 0, io.EOF
+		// n vì define ở dạng return nên initial sẽ là 0
+		return n, io.EOF
 	}
 
 	for i := 0; i < l && i < len(b); i++ {
 		iter := p.content[i]
 		b[i] = iter
 		p.pos++
+		n++
 	}
 
-	return p.pos, nil
+	// The Read method should return the number of bytes read in this call, not the total position (p.pos).
+	return n, nil
 }
 
 func (demoWrite) Write(bs []byte) (int, error) {
