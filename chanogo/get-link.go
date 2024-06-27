@@ -10,9 +10,9 @@ func GetLink() []string {
 		"http://youtube.com",
 		"http://facebook.com",
 		"http://stackoverflow.com",
-		"http://golang.org",
 		"http://google.com",
-		"http://amazon.com",
+		"http://golang.org",
+		// "http://amazon.com",
 	}
 	return links
 }
@@ -22,12 +22,14 @@ func CheckLink(link string, c chan string, i int) {
 	_, err := http.Get(link)
 	if err != nil {
 		res = string(i) + " Error:" + err.Error()
-		fmt.Println(res)
 		c <- res
 		return
 	}
+	// Deadlock if put here
+	// tmp := <-c
+	// fmt.Println(tmp)
+
 	res = string(i) + link + " is up!"
-	fmt.Println(res)
 	c <- res
 }
 
@@ -37,6 +39,8 @@ func CheckLinks() {
 
 	for i, link := range links {
 		go CheckLink(link, c, i)
+		// Đặt đây ko khác gì synchronous
+		// fmt.Printf(<-c)
 	}
 
 	// mes := <- c
