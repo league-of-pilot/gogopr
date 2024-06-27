@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	"go-learn/chanogo"
+	"go-learn/udego"
 	"os"
-	"udego"
 )
 
 func main() {
@@ -62,6 +63,8 @@ func main() {
 		udego.MainMethod23()
 	case "demoReader":
 		udego.PlayReader()
+	case "chano":
+		chanogo.CheckLinks()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
