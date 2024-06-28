@@ -4,18 +4,20 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 )
 
-func GetLink() []string {
-	links := []string{
-		// "http://youtube.com",
-		// "http://facebook.com",
-		"http://stackoverflow.com",
-		"http://google.com",
-		"http://golang.org",
-		"http://amazon.com",
-	}
-	return links
+const DELAY_TIME = time.Second * 5
+const CASE = 3
+
+// const ko support slice, map, array
+var links = []string{
+	// "http://youtube.com",
+	// "http://facebook.com",
+	"http://stackoverflow.com",
+	"http://google.com",
+	"http://golang.org",
+	"http://amazon.com",
 }
 
 // go routine fireup seperately and init log does not comes in order
@@ -40,10 +42,7 @@ func CheckLink(link string, c chan string, i int) {
 	c <- link
 }
 
-const CASE = 3
-
 func CheckLinks() {
-	links := GetLink()
 	c := make(chan string)
 
 	println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
