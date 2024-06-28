@@ -69,6 +69,8 @@ func main() {
 		chanogo.ChanTour()
 	case "chanbuf":
 		chanogo.ChanBuf()
+	case "selecterr":
+		chanogo.SelectErr()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
