@@ -8,7 +8,7 @@ import (
 
 func GetLink() []string {
 	links := []string{
-		"http://youtube.com",
+		// "http://youtube.com",
 		// "http://facebook.com",
 		"http://stackoverflow.com",
 		"http://google.com",
@@ -27,7 +27,8 @@ func CheckLink(link string, c chan string, i int) {
 	var res string
 	if err != nil {
 		res = strconv.Itoa(i) + " Error:" + err.Error()
-		c <- res
+		println(res)
+		c <- link
 		return
 	}
 	// Deadlock if put here
@@ -35,8 +36,11 @@ func CheckLink(link string, c chan string, i int) {
 	// fmt.Println(tmp)
 
 	res = strconv.Itoa(i) + " -> " + link + " is up!"
-	c <- res
+	println(res)
+	c <- link
 }
+
+const CASE = 2
 
 func CheckLinks() {
 	links := GetLink()
@@ -49,20 +53,55 @@ func CheckLinks() {
 		// fmt.Printf(<-c)
 	}
 
-	// mes := <- c
-	// fmt.Println(mes)
-	// fmt.Printf(<-c)
-	// println("Done - 1")
-	// fmt.Printf(<-c)
-	// println("Done - 2")
-	// fmt.Printf(<-c)
+	// Nếu ko comment loop trên lại thì ko còn value receive từ channel
+	switch CASE {
+	case 1:
+		simpleLoop(len(links), c)
+	case 2:
+		infiniteLoop(c)
+	default:
+		simpleReceiver(c)
+	}
 
-	for i := 0; i < len(links); i++ {
+	// ??? nếu đặt 2 inf loop ???
+	// Vì chạy tuần tự nên loop trên sẽ chặn đứng vòng chạy và ko xuống dưới đây được
+	// Phải set loop trong 1 goroutine khác ?!
+	println("FINAL EXIT SWITCH CASE")
+	anotherReceiver(c)
+}
+
+// ========================================
+// Receiver setup
+// ========================================
+
+func anotherReceiver(c chan string) {
+	mes := <-c
+	println("WHAT HAPPENED ", mes)
+}
+
+func simpleReceiver(c chan string) {
+	mes := <-c
+	fmt.Println(mes)
+	fmt.Printf(<-c)
+	println("Done - 1")
+	fmt.Printf(<-c)
+	println("Done - 2")
+	fmt.Printf(<-c)
+}
+
+func simpleLoop(len int, c chan string) {
+	for i := 0; i < len; i++ {
 		// This log COULD (not always) come up 1st before goroutine init complete
 		// goroutine fire up took some delay
 
 		println("Prepare receiving", i)
 		fmt.Printf(<-c)
-		println("Receive from channel", i)
+		println(" ==> Receive from channel", i)
+	}
+}
+
+func infiniteLoop(c chan string) {
+	for {
+		go CheckLink(<-c, c, 9000)
 	}
 }
