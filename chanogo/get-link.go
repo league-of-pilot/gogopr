@@ -40,7 +40,7 @@ func CheckLink(link string, c chan string, i int) {
 	c <- link
 }
 
-const CASE = 2
+const CASE = 3
 
 func CheckLinks() {
 	links := GetLink()
@@ -59,6 +59,8 @@ func CheckLinks() {
 		simpleLoop(len(links), c)
 	case 2:
 		infiniteLoop(c)
+	case 3:
+		alternativeLoopSyntax(c)
 	default:
 		simpleReceiver(c)
 	}
@@ -103,5 +105,15 @@ func simpleLoop(len int, c chan string) {
 func infiniteLoop(c chan string) {
 	for {
 		go CheckLink(<-c, c, 9000)
+	}
+}
+
+// Prefer syntax này hơn
+func alternativeLoopSyntax(c chan string) {
+	// Vì go tự ngầm hiểu <-c trả về string nhưng code nhìn sẽ rối
+	// Bọc lại để dễ hình dung
+	// l := <-c
+	for l := range c {
+		go CheckLink(l, c, 9000)
 	}
 }
