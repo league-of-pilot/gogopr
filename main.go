@@ -67,6 +67,8 @@ func main() {
 		chanogo.CheckLinks()
 	case "chantour":
 		chanogo.ChanTour()
+	case "chanbuf":
+		chanogo.ChanBuf()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
