@@ -122,9 +122,10 @@ func alternativeLoopSyntax(c chan string) {
 	// Bọc lại để dễ hình dung
 	// l := <-c
 	for l := range c {
-		go func() {
+		// bắt buộc phải truyền nếu ko thời điểm goroutine gọi tới là share value mem address với rout main
+		go func(link string) {
 			time.Sleep(DELAY_TIME)
-			checkLink(l, c, INDEX_SKIP)
-		}()
+			checkLink(link, c, INDEX_SKIP)
+		}(l)
 	}
 }
