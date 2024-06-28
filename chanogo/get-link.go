@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// main cũng là 1 goroutine nên có thể dùng time.Sleep
 const DELAY_TIME = time.Second * 5
 const CASE = 3
 
@@ -21,8 +22,10 @@ var links = []string{
 }
 
 // go routine fireup seperately and init log does not comes in order
-func CheckLink(link string, c chan string, i int) {
+func checkLink(link string, c chan string, i int) {
 	println("init routine", i)
+	// Set delay ở đây ko đúng về logic vì add side effect vào func
+	// time.Sleep(DELAY_TIME)
 	_, err := http.Get(link)
 
 	// Có thể gom style if-else res nhưng tách ra để dễ hack
@@ -47,7 +50,7 @@ func CheckLinks() {
 
 	println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 	for i, link := range links {
-		go CheckLink(link, c, i)
+		go checkLink(link, c, i)
 		// Đặt đây ko khác gì synchronous
 		// fmt.Printf(<-c)
 	}
@@ -103,7 +106,10 @@ func simpleLoop(len int, c chan string) {
 
 func infiniteLoop(c chan string) {
 	for {
-		go CheckLink(<-c, c, 9000)
+		// delay ở đây ko đúng vì các request sau chạy xong phải + 5s của main nữa mới chạy tiếp
+		// time.Sleep(DELAY_TIME)
+		// function literal ~ anonymous function in JS
+		go checkLink(<-c, c, 9000)
 	}
 }
 
@@ -113,6 +119,9 @@ func alternativeLoopSyntax(c chan string) {
 	// Bọc lại để dễ hình dung
 	// l := <-c
 	for l := range c {
-		go CheckLink(l, c, 9000)
+		go func() {
+			time.Sleep(DELAY_TIME)
+			checkLink(l, c, 9000)
+		}()
 	}
 }
