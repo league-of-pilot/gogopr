@@ -10,11 +10,12 @@ import (
 // main cũng là 1 goroutine nên có thể dùng time.Sleep
 const DELAY_TIME = time.Second * 5
 const CASE = 3
+const INDEX_SKIP = 9000
 
 // const ko support slice, map, array
 var links = []string{
 	// "http://youtube.com",
-	// "http://facebook.com",
+	"http://facebook.com",
 	"http://stackoverflow.com",
 	"http://google.com",
 	"http://golang.org",
@@ -23,7 +24,9 @@ var links = []string{
 
 // go routine fireup seperately and init log does not comes in order
 func checkLink(link string, c chan string, i int) {
-	println("init routine", i)
+	if i != INDEX_SKIP {
+		println("init routine", i)
+	}
 	// Set delay ở đây ko đúng về logic vì add side effect vào func
 	// time.Sleep(DELAY_TIME)
 	_, err := http.Get(link)
@@ -109,7 +112,7 @@ func infiniteLoop(c chan string) {
 		// delay ở đây ko đúng vì các request sau chạy xong phải + 5s của main nữa mới chạy tiếp
 		// time.Sleep(DELAY_TIME)
 		// function literal ~ anonymous function in JS
-		go checkLink(<-c, c, 9000)
+		go checkLink(<-c, c, INDEX_SKIP)
 	}
 }
 
@@ -121,7 +124,7 @@ func alternativeLoopSyntax(c chan string) {
 	for l := range c {
 		go func() {
 			time.Sleep(DELAY_TIME)
-			checkLink(l, c, 9000)
+			checkLink(l, c, INDEX_SKIP)
 		}()
 	}
 }
