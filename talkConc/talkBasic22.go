@@ -33,6 +33,7 @@ func MainTalkConc22() {
 // ý tưởng hay nhưng khi log ra sẽ ko kiểm soát được thứ tự nữa
 func fanIn(input1, input2 <-chan string) <-chan string {
 	c := make(chan string)
+	kill := time.After(5 * time.Second)
 	// go func() {
 	// 	for {
 	// 		c <- <-input1
@@ -52,6 +53,15 @@ func fanIn(input1, input2 <-chan string) <-chan string {
 				c <- s
 			case s := <-input2:
 				c <- s
+			case <-time.After(1 * time.Second):
+				// instant kill if no message in 1 second
+				// demo syntax for this case only, cannot reach in this setup
+				fmt.Println("You're too slow.")
+				return
+			case <-kill:
+				fmt.Println("kill")
+				// deadlock main vì main vẫn tiếp tục receive
+				return
 			}
 		}
 	}()
