@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go-learn/chanogo"
+	"go-learn/talkConc"
 	"go-learn/udego"
 	"os"
 )
@@ -73,6 +74,10 @@ func main() {
 		chanogo.SelectErr()
 	case "selectno":
 		chanogo.SelectUnknown()
+	case "conc22":
+		talkConc.MainTalkConc22()
+	case "fanin":
+		talkConc.XmainFanIn()
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
