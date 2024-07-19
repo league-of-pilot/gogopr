@@ -78,6 +78,21 @@ func main() {
 		talkConc.MainTalkConc22()
 	case "fanin":
 		talkConc.XmainFanIn()
+	case "struct":
+		structPrivate := chanogo.CreatePrivate()
+		newAge := structPrivate.Age + 20
+		println(newAge)
+
+		// var pubStruct chanogo.StructPub
+
+		pubStruct := chanogo.StructPub{
+			PubAge: 20,
+		}
+		priStr := chanogo.structExport{
+			Age: 20,
+		}
+		createByFunc := chanogo.CreatePublic()
+		println(pubStruct, priStr, createByFunc)
 	default:
 		deckFromFile := udego.NewDeckFromFile("my_cards._temp_.txt")
 		// deckFromFile.print()
